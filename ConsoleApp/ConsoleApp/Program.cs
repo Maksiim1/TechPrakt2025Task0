@@ -8,11 +8,18 @@ class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
 
-        double num1 = ReadNumber("Введіть перше число: ");
-        double num2 = ReadNumber("Введіть друге число: ");
+        try
+        {
+            double num1 = ReadNumber("Введіть перше число: ");
+            double num2 = ReadNumber("Введіть друге число: ");
 
-        double sum = num1 + num2;
-        Console.WriteLine($"Сума чисел {num1} і {num2} дорівнює: {sum}");
+            double sum = num1 + num2;
+            Console.WriteLine($"Сума чисел {num1} і {num2} дорівнює: {sum}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Сталася помилка: {ex.Message}");
+        }
     }
 
     static double ReadNumber(string message)
