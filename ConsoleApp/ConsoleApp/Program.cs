@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Text;
+using System.Globalization;
 
 class Program
 {
@@ -7,14 +8,32 @@ class Program
     {
         Console.OutputEncoding = Encoding.UTF8;
 
-        Console.Write("Введіть перше число: ");
-        double num1 = Convert.ToDouble(Console.ReadLine());
+        try
+        {
+            double num1 = ReadNumber("Введіть перше число: ");
+            double num2 = ReadNumber("Введіть друге число: ");
 
-        Console.Write("Введіть друге число: ");
-        double num2 = Convert.ToDouble(Console.ReadLine());
+            double sum = num1 + num2;
+            Console.WriteLine($"Сума чисел {num1} і {num2} дорівнює: {sum}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Сталася помилка: {ex.Message}");
+        }
+    }
 
-        double sum = num1 + num2;
+    static double ReadNumber(string message)
+    {
+        double number;
+        Console.Write(message);
+        string input = Console.ReadLine().Replace(',', '.'); // Нормалізація роздільника
 
-        Console.WriteLine($"Сума чисел {num1} і {num2} дорівнює: {sum}");
+        while (!double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out number))
+        {
+            Console.WriteLine("Помилка! Введіть коректне число.");
+            Console.Write(message);
+            input = Console.ReadLine().Replace(',', '.'); // Повторна нормалізація
+        }
+        return number;
     }
 }
