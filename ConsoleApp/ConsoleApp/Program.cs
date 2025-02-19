@@ -26,10 +26,13 @@ class Program
     {
         double number;
         Console.Write(message);
-        while (!double.TryParse(Console.ReadLine(), NumberStyles.Any, CultureInfo.InvariantCulture, out number))
+        string input = Console.ReadLine().Replace(',', '.'); // Нормалізація роздільника
+
+        while (!double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out number))
         {
             Console.WriteLine("Помилка! Введіть коректне число.");
             Console.Write(message);
+            input = Console.ReadLine().Replace(',', '.'); // Повторна нормалізація
         }
         return number;
     }
